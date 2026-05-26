@@ -1,5 +1,5 @@
 # CICD lab HW
-
+url: [cicd-lab](https://github.com/diadia0000/cicd-lab)
 ## CI pipline
 
 ```yml
@@ -7,6 +7,10 @@ name: myci
 
 on:
   push:
+
+permissions:
+  contents: read
+  checks: write
 
 jobs:
   quality:
@@ -54,16 +58,18 @@ jobs:
 7. 發布測試報告方便驗證結果跟debug
 
 ## 成功圖
+![alt text](picture/success.png)
 
-![](success.png)
 
 ## 失敗圖
 
-![alt text](fault.png)
-![alt text](fault2.png)
+![alt text](picture/fault.png)
+![alt text](picture/fault2.png)
 
 ### 失敗案例說明
 
-我故意不修正格式，讓 Prettier check 失敗。  
-錯誤原因：`prettier --check .` 顯示 `docker-compose.yml` 與 `snippets/*.yaml` 有格式問題。
-修正方式：執行 `npm run format`重新格式化後再 push。
+我故意不修正snippets資料夾的格式，讓 Prettier check 失敗。  
+錯誤原因：`prettier --check .` 顯示 `docker-compose.yml` 與 `snippets/*.yaml` 有格式問題，且沒有repo的讀寫權限。
+修正方式：
+     - 執行 `npm run format`重新格式化後再 push
+     - 在 workflow 中增加 `contents: read` `checks: write` 的權限，讓 workflow 可以讀取 repo 的內容。

@@ -1,4 +1,4 @@
-name: myci
+name: ci_X1146020
 
 on:
   push:
